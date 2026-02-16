@@ -4,6 +4,17 @@ An end-to-end machine learning project focused on predicting customer churn in a
 
 ---
 
+## Executive Summary
+
+This project develops an end-to-end machine learning solution to predict customer churn in a banking environment. 
+
+Using a Random Forest model optimized for recall, the system identifies high-risk customers before they leave, enabling proactive retention strategies. The model achieves a ROC-AUC of 0.85 and a churn recall of 0.78, ensuring most potential churners are detected.
+
+Beyond prediction, SHAP explainability techniques were applied to uncover the key behavioral drivers of churn, supporting transparent and compliant decision-making in a regulated financial environment.
+
+The project demonstrates how data science can move beyond accuracy metrics and directly inform business strategy, customer engagement, and profitability.
+
+
 ##  Business Problem
 
 Customer churn directly impacts profitability, acquisition costs, and long-term growth.  
