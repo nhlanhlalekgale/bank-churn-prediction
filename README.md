@@ -1,145 +1,154 @@
 # Bank Customer Churn Prediction
 
-An end-to-end machine learning project focused on predicting customer churn in a banking environment using explainable AI techniques.
+## Executive Summary
+This project develops an end-to-end machine learning solution to predict customer churn in a banking environment using a structured dataset of 5,000 customers.  
+
+Multiple models were evaluated, including Logistic Regression, Random Forest, Gradient Boosting, and XGBoost. Logistic Regression achieved the highest ROC-AUC score (0.775), outperforming more complex ensemble methods.  
+
+Classification threshold optimization was performed to align predictions with business retention objectives, demonstrating how model deployment decisions influence operational strategy.  
+
+This project emphasizes disciplined model comparison, interpretability, and business-aligned decision-making over model complexity.
 
 ---
 
-## Executive Summary
+## Business Problem
+Customer churn directly impacts bank profitability, acquisition costs, and long-term growth.  
 
-This project develops an end-to-end machine learning solution to predict customer churn in a banking environment. 
-
-Using a Random Forest model optimized for recall, the system identifies high-risk customers before they leave, enabling proactive retention strategies. The model achieves a ROC-AUC of 0.85 and a churn recall of 0.78, ensuring most potential churners are detected.
-
-Beyond prediction, SHAP explainability techniques were applied to uncover the key behavioral drivers of churn, supporting transparent and compliant decision-making in a regulated financial environment.
-
-The project demonstrates how data science can move beyond accuracy metrics and directly inform business strategy, customer engagement, and profitability.
-
-
-##  Business Problem
-
-Customer churn directly impacts profitability, acquisition costs, and long-term growth.  
-The objective is to predict churn early and identify key drivers behind it, enabling proactive and targeted retention strategies.
+**Objective:** Predict customer churn and identify key drivers so the bank can take proactive, targeted retention actions.
 
 ---
 
 ## Business Objectives
-
-- Predict high-risk customers
-- Identify early churn signals
+- Predict which customers are likely to churn
+- Identify early churn risk signals
 - Understand why customers churn (model explainability)
-- Reduce false negatives (missed churners)
-- Support data-driven decision-making in a regulated environment
+- Reduce churn through targeted interventions
+- Support data-driven decision-making
 
 ---
 
-## Dataset Overview
+##  Dataset Overview
+- **Type:** Public, simulated real-world banking dataset  
+- **Level:** Customer-level  
+- **Rows:** 5,000 customers  
+- **Target variable:** `churn` (1 = churned, 0 = retained)  
 
-- Type: Simulated real-world banking dataset
-- Records: ~5,000 customers
-- Target variable: `churn` (1 = churned, 0 = retained)
-
-### Key Features
-- Credit score
-- Tenure
-- Number of products
-- Account balance
-- Activity status
-- Complaints (last 12 months)
-
----
-
-## Data Science Workflow
-
-### Data Cleaning
-- Handled missing values
-- Corrected data types
-- Removed duplicates
-- Validated target labels
-
-### Exploratory Data Analysis
-Key Findings:
-- Dataset is imbalanced (~20% churn)
-- Inactive customers churn significantly more
-- Single-product customers are high risk
-- Less products more likely to churn
-- Lower account balance more likely to churn
-- Complaints strongly correlate with churn
-
-### Feature Engineering
-- Created credit score bands
-- Encoded categorical variables
-- Scaled numerical features
-
-### Modeling
-- Logistic Regression (baseline)
-- Random Forest (final model)
-
-Why Random Forest?
-- Handles non-linear relationships
-- Robust to noise
-- Performs well with mixed feature types
-
-###  Model Evaluation
-Metrics used due to class imbalance:
-- Recall
-- Precision
-- ROC-AUC
-
-**Results:**
-- Recall (Churn): 0.78
-- ROC-AUC: 0.85
-
-Focus: Minimize false negatives (missed churners).
+**Key Features:**  
+- Credit score  
+- Tenure  
+- Number of products  
+- Account balance  
+- Activity status  
+- Complaints in last 12 months  
 
 ---
 
-## Model Explainability (SHAP)
+## Exploratory Data Analysis (EDA)
 
-SHAP was used to explain:
-- Global feature importance
-- Individual customer predictions
+### Churn Distribution
 
-### Top Churn Drivers
-- Low tenure
-- Low number of products
-- Inactivity
-- Recent complaints
-- Low account balance
+*Insight:* Dataset is highly imbalanced (~20% churn). Inactive or single-product customers have higher churn.
 
-Key Insight:  
-Churn is driven more by engagement and service experience than demographics.
+### Feature Insights
+- Average Account Balance vs Churn  
+- Number of Products vs Churn  
+- Complaints vs Churn  
 
 ---
 
-## Business Impact
+## Feature Engineering
+- Created credit score bands  
+- Encoded categorical variables  
+- Scaled numerical features  
+- Prepared data for machine learning models  
 
-- Enables proactive retention strategies
-- Reduces customer acquisition costs
-- Improves customer lifetime value
-- Supports explainable AI compliance in banking
+*Goal:* Improve predictive power and interpretability.
+
+---
+
+## Modeling & Evaluation
+
+### Model Performance Comparison
+
+| Model                 | ROC-AUC |
+|-----------------------|---------|
+| Logistic Regression   | 0.775   |
+| Random Forest         | 0.758   |
+| Gradient Boosting     | 0.759   |
+| XGBoost               | 0.735   |
+
+*Observation:* Logistic Regression outperformed ensemble models due to dataset size and linear relationships.
+
+---
+
+## Threshold Optimization
+
+**Findings:**
+- Maximum Recall occurs at threshold = 0.0 (trivial solution)  
+- Best F1-score achieved at threshold = 0.535 (F1 = 0.364)  
+
+*Insight:* Threshold adjustment is crucial for aligning model predictions with business retention objectives.
+
+---
+
+##  Model Explainability (SHAP)
+
+**Top Drivers of Churn:**
+- Low tenure  
+- Low number of products  
+- Inactivity  
+- Recent complaints  
+- Low account balance  
+
+*Key insight:* Engagement and service experience drive churn more than demographics.
+
+---
+
+##  Business Insights (10 Critical Points)
+1. New customers churn at higher rates  
+2. Single-product customers are most vulnerable  
+3. Inactivity is a strong churn signal  
+4. Complaints are early churn warnings  
+5. Low account balances correlate with churn  
+6. Multi-product customers are more loyal  
+7. Engagement matters more than age or gender  
+8. Early intervention reduces churn risk  
+9. Churn prediction enables proactive retention  
+10. Explainable models are essential for compliance  
+
+---
+
+## Business Recommendations
+- Strengthen onboarding for new customers  
+- Launch cross-sell campaigns early  
+- Trigger retention actions after first complaint  
+- Reactivate inactive customers with incentives  
+- Prioritize explainable ML models for compliance  
+
+---
+
+## Notebooks
+- [01_eda.ipynb](notebooks/01_eda.ipynb)  
+- [02_feature_engineering.ipynb](notebooks/01_feature_engineering.ipynb)  
+- [03_modeling.ipynb](notebooks/01_modeling.ipynb)  
+- [04_shap_explainability.ipynb](notebooks/01_shap_explainability.ipynb)  
 
 ---
 
 ## Tools & Technologies
-
-- Python
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- Scikit-learn
-- SHAP
+- Python  
+- Pandas, NumPy  
+- Matplotlib, Seaborn  
+- Scikit-learn  
+- SHAP  
 
 ---
 
-##  Project Structure
-
-Bank-Churn-Prediction/
-│
-├── data/
-├── notebooks/
-├── README.md
-└── requirements.txt
+##  How This Project Adds Business Value
+- Reduces customer acquisition costs  
+- Improves customer lifetime value  
+- Enables explainable, compliant ML decisions  
+- Translates data into actionable strategy  
 
 ---
 
